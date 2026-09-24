@@ -113,7 +113,7 @@ export default function CrearPlanPage() {
             description: descripcion,
             estimatedPrice: Number(precioEstimado),
             estimatedTime: Number(duracion),
-            recommendations: recomendaciones,
+            recomendations: recomendaciones,
             address: direccion,
             image: fotoPlan,
             userId: session.id,
@@ -147,7 +147,7 @@ export default function CrearPlanPage() {
           onChange={(e) => setFoto(e.target.value)}
           onBlur={(e) => validarFoto(e.target.value)}
         />
-        {errorFoto && <p style={{ color: "red" }}>La foto es obligatoria.</p>}
+        {errorFoto && <p style={{ color: "red" }}>La foto debe ser un link que empiece por http:// o https://.</p>}
 
         <label className="mt-8 block text-sm font-medium text-slate-700">Nombre *</label>
         <input

@@ -38,7 +38,7 @@ export type NewPlan = {
   description: string;
   estimatedPrice: number;
   estimatedTime: number;
-  recommendations: string;
+  recomendations: string;
   address: string;
   image: string;
   userId: string;
