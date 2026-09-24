@@ -32,6 +32,18 @@ export type Plan = {
   };
 };
 
+//esto es un nuevo plan d acuerdo con el parcial
+export type NewPlan = {
+  name: string;
+  description: string;
+  estimatedPrice: number;
+  estimatedTime: number;
+  recommendations: string;
+  address: string;
+  image: string;
+  userId: string;
+};
+
 // Pide al back la lista de todos los planes
 export async function getPlans(): Promise<PlanSummary[]> {
   const response = await fetch(`${API_URL}/plans`, { cache: "no-store" });
@@ -53,6 +65,21 @@ export async function getPlan(id: string): Promise<Plan | null> {
 
   if (!response.ok) {
     throw new Error("No se pudo cargar el plan");
+  }
+
+  return response.json();
+}
+
+// Crear un plan nuevo pero toca async por la api esa :segun lo q entendi?
+export async function createPlan(plan: NewPlan) {
+  const response = await fetch(`${API_URL}/plans`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(plan), // Se convierte el plan a JSON para enviarlo al back segun lo q enteindo
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo crear el plan");
   }
 
   return response.json();
