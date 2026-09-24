@@ -121,7 +121,7 @@ export default function CrearPlanPage() {
 
           router.push("/plans");
         } catch (error) {
-          alert("No se pudo crear el plan.");
+          alert(error instanceof Error ? error.message : "No se pudo crear el plan.");
           console.log(error);
         }
         } else {
