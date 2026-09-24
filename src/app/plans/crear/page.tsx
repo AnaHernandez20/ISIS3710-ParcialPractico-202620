@@ -24,6 +24,8 @@ export default function CrearPlanPage() {
     const [errorPrecioEstimado, setErrorPrecioEstimado] = useState(false);
     const [errorDuracion, setErrorDuracion] = useState(false);
     const [errorDescripcion, setErrorDescripcion] = useState(false);
+    //creo q me va a tocar hacer la foto obligatoria
+    const [errorFoto, setErrorFoto] = useState(false);
 
     //Una funcion para validar
     function validarNombre(valor: string) {
@@ -71,6 +73,14 @@ export default function CrearPlanPage() {
         return descripcionValida;
     }
 
+    //La foto es obligatoria
+    function validarFoto(valor: string) {
+      const fotoValida = valor.trim().length > 0;
+
+        setErrorFoto(!fotoValida); //aqui dara true si la foto esta vacia
+        return fotoValida;
+    }
+
     //Crear eso pero validando q todo bien
     //Toca async por el createPlan que es una llamada a la API y eso es async F
     async function crearPlan() {  
@@ -80,8 +90,9 @@ export default function CrearPlanPage() {
         const precioEstimadoValido = validarPrecioEstimado(precioEstimado);
         const duracionValida = validarDuracion(duracion);
         const descripcionValida = validarDescripcion(descripcion);
+        const fotoValida = validarFoto(foto);
 
-        if (nombreValido && direccionValida && precioEstimadoValido && duracionValida && descripcionValida) {
+        if (nombreValido && direccionValida && precioEstimadoValido && duracionValida && descripcionValida && fotoValida) {
         const session = getSession();  //pa tomar el id del usuario
 
         if (!session.id) {
@@ -134,7 +145,9 @@ export default function CrearPlanPage() {
           placeholder="Link de la foto"
           value={foto}
           onChange={(e) => setFoto(e.target.value)}
+          onBlur={(e) => validarFoto(e.target.value)}
         />
+        {errorFoto && <p style={{ color: "red" }}>La foto es obligatoria.</p>}
 
         <label className="mt-8 block text-sm font-medium text-slate-700">Nombre *</label>
         <input

@@ -79,7 +79,8 @@ export async function createPlan(plan: NewPlan) {
   });
 
   if (!response.ok) {
-    throw new Error("No se pudo crear el plan");
+    const data = await response.json();
+    throw new Error(data.message || "No se pudo crear el plan");
   }
 
   return response.json();
